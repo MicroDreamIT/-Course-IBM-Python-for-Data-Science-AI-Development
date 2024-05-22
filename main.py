@@ -1,18 +1,18 @@
 import numpy as np
 import pandas as pd
+import warnings
 
-filename = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-PY0101EN-SkillsNetwork/labs/Module%204/data/example1.txt"
 
-async def download(url, filename):
+def warn(*args, **kwargs):
+    pass
 
-    response = await pyfetch(url)
 
-    if response.status == 200:
+warnings.warn = warn
+warnings.filterwarnings('ignore')
 
-        with open(filename, "wb") as f:
+URL = "https://web.archive.org/web/20230902185326/https://en.wikipedia.org/wiki/List_of_countries_by_GDP_%28nominal%29"
 
-            f.write(await response.bytes())
+tables = pd.read_html(URL)
+df = tables[3]
 
-await download(filename, "example1.txt")
-
-print("done")
+print(df)
